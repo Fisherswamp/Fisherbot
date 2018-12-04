@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /login_info/
 =======
 # Logs
@@ -63,3 +64,6 @@ typings/
 # next.js build output
 .next
 >>>>>>> 912c6be77bebe1961560f9382507883779beafe8
+=======
+
+>>>>>>> 02d7d23f58e843c1c8627faec48ba52124da425f
