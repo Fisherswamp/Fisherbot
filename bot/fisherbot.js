@@ -3,6 +3,11 @@ var Opus = require('node-opus');
 var Discord = require('discord.js');
 var Path = require('path');
 var AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
+
+
+
+var audioData = AudioHandler.getAudioData();
+
 var prefix = "/";
 var delimiter = ",";
 
@@ -18,11 +23,7 @@ var functions = [
 	}
 ];
 
-//TEST
 
-console.log(AudioHandler.ping());
-
-//
 console.log("Running");
 
 var bot = new Discord.Client();
@@ -77,4 +78,6 @@ bot.login(content.login_id).catch(
 		console.log("Error with login id " + content.login_id + " : " + error);
 	}
 );
+
+
 
