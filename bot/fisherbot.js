@@ -2,6 +2,7 @@ var FileSystem = require('fs');
 var Opus = require('node-opus');
 var Discord = require('discord.js');
 var Path = require('path');
+var AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
 var prefix = "/";
 var delimiter = ",";
 
@@ -17,6 +18,11 @@ var functions = [
 	}
 ];
 
+//TEST
+
+console.log(AudioHandler.ping());
+
+//
 console.log("Running");
 
 var bot = new Discord.Client();
