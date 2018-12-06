@@ -70,8 +70,8 @@ var commands = [
 						);
 				}else{
 					let song = args[1].trim();
-					if(audioDataDictionary.includes(song)){
-						message.channel.send(song + ": " + song.description);
+					if(audioDataDictionary[song]){
+						message.channel.send(song + ": " + audioDataDictionary[song].description);
 					}else{
 						message.channel.send("Unable to find clip " + song);
 					}
@@ -96,13 +96,18 @@ function playClip(songData, message){
 	}else{
 		message.member.voiceChannel.join().then(connection => {
 			let pathString = Path.resolve(__dirname, "../audio_clips/" + songData.file_name);
-			const dispatcher = connection.playFile(pathString);
+			let dispatcher = connection.playFile(pathString);
 			dispatcher.on('error', e => {
 				console.log(e);	
 			});
 
+			dispatcher.on('debug', msg => {
+				console.log(msg);
+			});
+
 			dispatcher.on('end', ()=> {
 				console.log("Clip has finished playing file " + pathString);
+				message.member.voiceChannel.leave();
 			});
 
 			dispatcher.setVolume(1);
