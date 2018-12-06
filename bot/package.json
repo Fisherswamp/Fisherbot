@@ -1,0 +1,23 @@
+{
+  "name": "fisherbot",
+  "version": "1.0.0",
+  "description": "Fisherbot is a discord bot written in nodejs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fisherswamp/Fisherbot.git"
+  },
+  "author": "Fisherswamp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fisherswamp/Fisherbot/issues"
+  },
+  "homepage": "https://github.com/Fisherswamp/Fisherbot#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "node-opus": "^0.2.9"
+  }
+}
