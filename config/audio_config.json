@@ -53,5 +53,10 @@
 		"clip_command_name": "thwomp",
 		"clip_file_name": "thwomp.mp3",
 		"clip_description": "A grunting noise"
+	},
+	{
+		"clip_command_name": "hey",
+		"clip_file_name": "hey.mp3",
+		"clip_description": "Weird way to say hello"
 	}
 ]
