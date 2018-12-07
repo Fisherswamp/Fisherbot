@@ -300,6 +300,20 @@ var commands = [
 			}
 		}
 
+	},
+	{
+		name: "purge",
+		arguments: 1,
+		description: "Deletes a certain number of recent messages in the chat. Example: " + prefix + "purge" + delimiter +  "2",
+		isAdminCommand: true,
+		method: function(message,args){
+			let numMessages = Math.abs(parseInt(args[0]))+1;
+			if(numMessages > 20){
+				message.channel.sendMessage("You may not purge more than 20 messages at once.");
+			}else{
+				message.channel.fetchMessages({limit: numMessages}).then(messages => message.channel.bulkDelete(messages));
+			}
+		}
 	}
 ];
 
@@ -337,7 +351,6 @@ function playClip(songData, message){
 		);
 	}
 }
-
 (function(){
 	module.exports.getCommands = function(){
 		return commands;

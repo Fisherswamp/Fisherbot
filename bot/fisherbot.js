@@ -58,6 +58,12 @@ bot.on('guildMemberAdd', member => {
 	member.guild.defaultChannel.send(member.user + " has joined the channel.");
 });
 
+
+function isAdmin(user){
+	return (user.hasPermission('ADMINISTRATOR') || user.id == "102514568432988160");
+}
+
+
 let content = JSON.parse(FileSystem.readFileSync(Path.resolve(__dirname, "../login_info/login.json"), "UTF-8"));
 
 bot.login(content.login_id).catch(
