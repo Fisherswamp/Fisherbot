@@ -1,6 +1,7 @@
 var Opus = require('node-opus');
 var Path = require('path');
 var AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
+var Math = require('mathjs');
 
 var prefix = "/";
 var delimiter = ",";
@@ -277,6 +278,16 @@ var commands = [
 				message.channel.sendMessage("You are already set as 'Out of Town'");
 			}
 		}
+	},
+	{
+		name: "math",
+		arguments: 1,
+		description: "Solves a math problem. Example: " + prefix + "math" + delimiter + " 2 + 2",
+		isAdminCommand: false,
+		method: function(message,args){
+			message.channel.send(Math.eval(args[0]));
+		}
+
 	}
 ];
 
