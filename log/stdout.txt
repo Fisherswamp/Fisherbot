@@ -1,2 +1,3 @@
 Running
 Initilization finished
+Clip has finished playing file /home/Fisherbot/audio_clips/gay.mp3

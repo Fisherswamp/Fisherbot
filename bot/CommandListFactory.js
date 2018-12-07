@@ -286,7 +286,7 @@ var commands = [
 		isAdminCommand: false,
 		method: function(message,args){
 			try{
-				message.channel.send(Math.eval(args[0]));
+				message.channel.send(args[0] + " = " + Math.eval(args[0]));
 			} catch(err){
 				message.channel.send("Unable to parse '" + args[0] + "'");
 			}
