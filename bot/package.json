@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Fisherswamp/Fisherbot#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "node-opus": "^0.2.9"
+    "node-opus": "^0.2.9",
+    "mathjs": "^5.3.1"
   }
 }
