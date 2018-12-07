@@ -281,14 +281,21 @@ var commands = [
 	},
 	{
 		name: "math",
-		arguments: 1,
+		arguments: null,
 		description: "Solves a math problem. Example: " + prefix + "math" + delimiter + " 2 + 2",
 		isAdminCommand: false,
 		method: function(message,args){
 			try{
-				message.channel.send(args[0] + " = " + Math.eval(args[0]));
+				let command = "";
+				for(var i = 0; i < args.length; i++){
+					command += args[i];
+					if(i != args.length - 1){
+						command += delimiter;
+					}
+				}
+				message.channel.send(command + " = " + Math.eval(command));
 			} catch(err){
-				message.channel.send("Unable to parse '" + args[0] + "'");
+				message.channel.send("Unable to parse '" + command + "'");
 			}
 		}
 
