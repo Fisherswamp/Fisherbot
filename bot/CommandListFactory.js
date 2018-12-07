@@ -285,7 +285,11 @@ var commands = [
 		description: "Solves a math problem. Example: " + prefix + "math" + delimiter + " 2 + 2",
 		isAdminCommand: false,
 		method: function(message,args){
-			message.channel.send(Math.eval(args[0]));
+			try{
+				message.channel.send(Math.eval(args[0]));
+			} catch(err){
+				message.channel.send("Unable to parse '" + args[0] + "'");
+			}
 		}
 
 	}
