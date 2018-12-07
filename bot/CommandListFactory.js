@@ -285,8 +285,9 @@ var commands = [
 		description: "Solves a math problem. Example: " + prefix + "math" + delimiter + " 2 + 2",
 		isAdminCommand: false,
 		method: function(message,args){
+			let command = "";
+			
 			try{
-				let command = "";
 				for(var i = 0; i < args.length; i++){
 					command += args[i];
 					if(i != args.length - 1){
