@@ -2,20 +2,13 @@ var FileSystem = require('fs');
 var Opus = require('node-opus');
 var Discord = require('discord.js');
 var Path = require('path');
+var Commands = require(Path.resolve(__dirname, "CommandListFactory.js"));
+
+
 var prefix = "/";
 var delimiter = ",";
 
-var functions = [
-	{
-		name: "ping",
-		arguments: 0,
-		description: "Responds with pong, whenever the user enters \'ping\'.",
-		isAdminCommand: false,
-		method: function(message,args){
-					message.channel.sendMessage("pong");
-				}
-	}
-];
+
 
 console.log("Running");
 
@@ -29,24 +22,25 @@ bot.on('ready', () => {
 bot.on(
 	"message",
 	function(message){
-
+		let functions = Commands.getCommands(); 
 		for(var i = 0; i < functions.length; i++){
 			if(message.content.toLowerCase().startsWith(prefix + functions[i].name.toLowerCase())){
 				if(functions[i].isAdminCommand && !isAdmin(message.member)){
 					message.channel.sendMessage("You are not authorized to use this command");
 				}else{
 					let argsList = [];
-					if(functions[i].arguments > 0){
-						//argsList = message.content.split(" ");
+					let isDynamicArgumentFunction = (functions[i].arguments == null);
+					
+					if(functions[i].arguments > 0 || isDynamicArgumentFunction){
 						argsList = message.content.substring(functions[i].name.length+1).split(delimiter);
 						argsList.splice(0,1);//remove first element in argsList, which is the comma
 						//console.log(argsList);
 
 					}
-					if(argsList.length == functions[i].arguments){
+					if(isDynamicArgumentFunction || argsList.length == functions[i].arguments){
 						functions[i].method(message,argsList);
 					}else{
-						message.channel.sendMessage("This function has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
+						message.channel.sendMessage("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
 					}
 
 				}
@@ -71,4 +65,6 @@ bot.login(content.login_id).catch(
 		console.log("Error with login id " + content.login_id + " : " + error);
 	}
 );
+
+
 

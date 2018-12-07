@@ -1,0 +1,62 @@
+[
+	{
+		"clip_command_name": "diamonds",
+		"clip_file_name": "!ben.mp3",
+		"clip_description": "Ben goes off on a tanget about Itai's minecraft skills"
+	},
+	{
+		"clip_command_name": "bitconnect",
+		"clip_file_name": "bitconnect.mp3",
+		"clip_description": "Carlos from bitconnect asks a question"
+	},
+	{
+		"clip_command_name": "dotamatch",
+		"clip_file_name": "dotamatch.mp3",
+		"clip_description": "The sound that Dota makes when a player finds a match"
+	},
+	{
+		"clip_command_name": "eatdirt",
+		"clip_file_name": "eatdirt.mp3",
+		"clip_description": "Ben politely requests that Eli consume a nature-related delicacy"
+	},
+	{
+		"clip_command_name": "gay",
+		"clip_file_name": "gay.mp3",
+		"clip_description": "The truth come out... does audio file is gay"
+	},
+	{
+		"clip_command_name": "hewwo",
+		"clip_file_name": "hewwo.mp3",
+		"clip_description": "A guy says the title of this clip with dramatic music in the background"
+	},
+	{
+		"clip_command_name": "highhorse",
+		"clip_file_name": "highhorse.mp3",
+		"clip_description": "Arteezy gives some valuable life advice"
+	},
+	{
+		"clip_command_name": "leaguematch",
+		"clip_file_name": "leaguematch.mp3",
+		"clip_description": "The sound that League of Legends makes when a player finds a match"
+	},
+	{
+		"clip_command_name": "mustgetdick",
+		"clip_file_name": "meme.wav",
+		"clip_description": "I... I can't with this one. It's really long so dont be a dick with this one"
+	},
+	{
+		"clip_command_name": "spoopy",
+		"clip_file_name": "spoopy.mp3",
+		"clip_description": "X-Files theme"
+	},
+	{
+		"clip_command_name": "thwomp",
+		"clip_file_name": "thwomp.mp3",
+		"clip_description": "A grunting noise"
+	},
+	{
+		"clip_command_name": "hey",
+		"clip_file_name": "hey.mp3",
+		"clip_description": "Weird way to say hello"
+	}
+]
