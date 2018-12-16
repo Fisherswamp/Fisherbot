@@ -1,6 +1,7 @@
 var Opus = require('node-opus');
 var Path = require('path');
 var AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
+var Math = require('mathjs');
 
 var prefix = "/";
 var delimiter = ",";
@@ -12,7 +13,7 @@ var commands = [
 		description: "Responds with pong, whenever the user enters \'ping\'.",
 		isAdminCommand: false,
 		method: function(message,args){
-			message.channel.sendMessage("pong");
+			message.channel.send("pong");
 		}
 	},
 	{
@@ -135,7 +136,7 @@ var commands = [
 		isAdminCommand: false,
 		method: function(message,args){
 			var numberOfSides = args[0];
-			message.channel.sendMessage("I rolled a " + (Math.floor(Math.random() * numberOfSides) + 1) + ".");
+			message.channel.send("I rolled a " + (Math.floor(Math.random() * numberOfSides) + 1) + ".");
 		}
 	},
 	{
@@ -213,9 +214,9 @@ var commands = [
 		method: function(message,args){
 			var rand = Math.random();
 			if(rand > 0.5){
-				message.channel.sendMessage("Heads");
+				message.channel.send("Heads");
 			}else{
-				message.channel.sendMessage("Tails");
+				message.channel.send("Tails");
 			}
 		}
 	},
@@ -225,7 +226,7 @@ var commands = [
 		description: "Gets the user's ID (mostly for debugging purposes)",
 		isAdminCommand: false,
 		method: function(message,args){
-			message.channel.sendMessage("This ID for " + message.author.username + " is " + message.author.id);
+			message.channel.send("This ID for " + message.author.username + " is " + message.author.id);
 		}
 	},
 	{
@@ -247,9 +248,9 @@ var commands = [
 				newRoleArray.push(message.guild.roles.find("name", "In Town").id);
 
 				message.member.setRoles(newRoleArray);
-				message.channel.sendMessage("You are now set to be 'In Town'");
+				message.channel.send("You are now set to be 'In Town'");
 			}else{
-				message.channel.sendMessage("You are already set as 'In Town'");
+				message.channel.send("You are already set as 'In Town'");
 			}
 		}
 	},
@@ -272,12 +273,57 @@ var commands = [
 				newRoleArray.push(message.guild.roles.find("name", "Out of Town").id);
 
 				message.member.setRoles(newRoleArray);
-				message.channel.sendMessage("You are now set to be 'Out of Town'");
+				message.channel.send("You are now set to be 'Out of Town'");
 			}else{
-				message.channel.sendMessage("You are already set as 'Out of Town'");
+				message.channel.send("You are already set as 'Out of Town'");
+			}
+		}
+	},
+	{
+		name: "math",
+		arguments: null,
+		description: "Solves a math problem. Example: " + prefix + "math" + delimiter + " 2 + 2",
+		isAdminCommand: false,
+		method: function(message,args){
+			let command = "";
+			
+			try{
+				for(var i = 0; i < args.length; i++){
+					command += args[i];
+					if(i != args.length - 1){
+						command += delimiter;
+					}
+				}
+				message.channel.send(command + " = " + Math.eval(command));
+			} catch(err){
+				message.channel.send("Unable to parse '" + command + "'");
+			}
+		}
+
+	},
+	{
+		name: "purge",
+		arguments: 1,
+		description: "Deletes a certain number of recent messages in the chat. Example: " + prefix + "purge" + delimiter +  "2",
+		isAdminCommand: true,
+		method: function(message,args){
+			let numMessages = Math.abs(parseInt(args[0]))+1;
+			if(numMessages > 20){
+				message.channel.send("You may not purge more than 20 messages at once.");
+			}else{
+				message.channel.fetchMessages({limit: numMessages}).then(messages => message.channel.bulkDelete(messages));
 			}
 		}
 	}
+//	{
+//		name: "testcommand",
+//		arguments: 0,
+//		description: "N/A",
+//		isAdminCommand: false,
+//		method: function(message,args){
+//			message.channel.send("\u200F hey ");
+//		}
+//	}
 ];
 
 function playClip(songData, message){
@@ -314,7 +360,6 @@ function playClip(songData, message){
 		);
 	}
 }
-
 (function(){
 	module.exports.getCommands = function(){
 		return commands;
