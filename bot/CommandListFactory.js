@@ -13,7 +13,7 @@ var commands = [
 		description: "Responds with pong, whenever the user enters \'ping\'.",
 		isAdminCommand: false,
 		method: function(message,args){
-			message.channel.sendMessage("pong");
+			message.channel.send("pong");
 		}
 	},
 	{
@@ -136,7 +136,7 @@ var commands = [
 		isAdminCommand: false,
 		method: function(message,args){
 			var numberOfSides = args[0];
-			message.channel.sendMessage("I rolled a " + (Math.floor(Math.random() * numberOfSides) + 1) + ".");
+			message.channel.send("I rolled a " + (Math.floor(Math.random() * numberOfSides) + 1) + ".");
 		}
 	},
 	{
@@ -214,9 +214,9 @@ var commands = [
 		method: function(message,args){
 			var rand = Math.random();
 			if(rand > 0.5){
-				message.channel.sendMessage("Heads");
+				message.channel.send("Heads");
 			}else{
-				message.channel.sendMessage("Tails");
+				message.channel.send("Tails");
 			}
 		}
 	},
@@ -226,7 +226,7 @@ var commands = [
 		description: "Gets the user's ID (mostly for debugging purposes)",
 		isAdminCommand: false,
 		method: function(message,args){
-			message.channel.sendMessage("This ID for " + message.author.username + " is " + message.author.id);
+			message.channel.send("This ID for " + message.author.username + " is " + message.author.id);
 		}
 	},
 	{
@@ -248,9 +248,9 @@ var commands = [
 				newRoleArray.push(message.guild.roles.find("name", "In Town").id);
 
 				message.member.setRoles(newRoleArray);
-				message.channel.sendMessage("You are now set to be 'In Town'");
+				message.channel.send("You are now set to be 'In Town'");
 			}else{
-				message.channel.sendMessage("You are already set as 'In Town'");
+				message.channel.send("You are already set as 'In Town'");
 			}
 		}
 	},
@@ -273,9 +273,9 @@ var commands = [
 				newRoleArray.push(message.guild.roles.find("name", "Out of Town").id);
 
 				message.member.setRoles(newRoleArray);
-				message.channel.sendMessage("You are now set to be 'Out of Town'");
+				message.channel.send("You are now set to be 'Out of Town'");
 			}else{
-				message.channel.sendMessage("You are already set as 'Out of Town'");
+				message.channel.send("You are already set as 'Out of Town'");
 			}
 		}
 	},
@@ -309,12 +309,21 @@ var commands = [
 		method: function(message,args){
 			let numMessages = Math.abs(parseInt(args[0]))+1;
 			if(numMessages > 20){
-				message.channel.sendMessage("You may not purge more than 20 messages at once.");
+				message.channel.send("You may not purge more than 20 messages at once.");
 			}else{
 				message.channel.fetchMessages({limit: numMessages}).then(messages => message.channel.bulkDelete(messages));
 			}
 		}
 	}
+//	{
+//		name: "testcommand",
+//		arguments: 0,
+//		description: "N/A",
+//		isAdminCommand: false,
+//		method: function(message,args){
+//			message.channel.send("\u200F hey ");
+//		}
+//	}
 ];
 
 function playClip(songData, message){
