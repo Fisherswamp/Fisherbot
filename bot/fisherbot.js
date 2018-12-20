@@ -51,11 +51,15 @@ bot.on(
 );
 
 bot.on("guildMemberRemove", (member) => {
-	member.guild.defaultChannel.send(member.user + " has left the channel.");
+	if(member.guild.defaultChannel){
+		member.guild.defaultChannel.send(member.user + " has left the channel.");
+	}
 });
 
 bot.on('guildMemberAdd', member => {
-	member.guild.defaultChannel.send(member.user + " has joined the channel.");
+	if(member.guild.defaultChannel){
+		member.guild.defaultChannel.send(member.user + " has joined the channel.");
+	}
 });
 
 
