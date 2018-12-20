@@ -1,1 +1,0 @@
-(node:6107) DeprecationWarning: Guild#defaultChannel: This property is obsolete, will be removed in v12.0.0, and may not function as expected.

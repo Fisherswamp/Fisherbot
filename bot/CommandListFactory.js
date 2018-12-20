@@ -348,7 +348,9 @@ function playClip(songData, message){
 
 			dispatcher.on('end', ()=> {
 				console.log("Clip has finished playing file " + pathString);
-				message.member.voiceChannel.leave();
+				if(message.member.voiceChannel){
+					message.member.voiceChannel.leave();
+				}
 			});
 
 			dispatcher.setVolume(1);
