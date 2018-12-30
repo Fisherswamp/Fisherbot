@@ -235,7 +235,7 @@ var commands = [
 		description: "Sets the user to be in town",
 		isAdminCommand: false,
 		method: function(message,args){
-			if(!message.member.roles.has(message.guild.roles.find("name", "In Town").id)) {
+			if(!message.member.roles.has(message.guild.roles.find(x => x.name === "In Town").id)) {
 				let roles = message.guild.roles;//message.author.addRole(role).catch(console.error);
 				let roleIDs = Array.from(roles.keys());
 				let newRoleArray = [];
@@ -313,6 +313,16 @@ var commands = [
 			}else{
 				message.channel.fetchMessages({limit: numMessages}).then(messages => message.channel.bulkDelete(messages));
 			}
+		}
+	},
+	{
+		name: "pin",
+		arguments: 0,
+		description: "Pins the message sent, which can be edited later",
+		isAdminCommand: false,
+		method: function(message, args){
+			message.react('🤔');
+			message.pin();
 		}
 	}
 //	{

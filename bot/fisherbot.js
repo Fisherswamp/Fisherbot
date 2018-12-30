@@ -24,7 +24,10 @@ bot.on(
 	function(message){
 		let functions = Commands.getCommands(); 
 		for(var i = 0; i < functions.length; i++){
-			if(message.content.toLowerCase().startsWith(prefix + functions[i].name.toLowerCase())){
+			if(
+				message.content.toLowerCase() == (prefix + functions[i].name.toLowerCase())
+				|| message.content.toLowerCase().replace(/\s/g,'').startsWith(prefix + functions[i].name.toLowerCase() + delimiter)			
+			){
 				if(functions[i].isAdminCommand && !isAdmin(message.member)){
 					message.channel.sendMessage("You are not authorized to use this command");
 				}else{
