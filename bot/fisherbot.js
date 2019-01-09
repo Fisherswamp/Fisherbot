@@ -29,7 +29,7 @@ bot.on(
 				|| message.content.toLowerCase().replace(/\s/g,'').startsWith(prefix + functions[i].name.toLowerCase() + delimiter)			
 			){
 				if(functions[i].isAdminCommand && !isAdmin(message.member)){
-					message.channel.sendMessage("You are not authorized to use this command");
+					message.channel.send("You are not authorized to use this command");
 				}else{
 					let argsList = [];
 					let isDynamicArgumentFunction = (functions[i].arguments == null);
@@ -43,7 +43,7 @@ bot.on(
 					if(isDynamicArgumentFunction || argsList.length == functions[i].arguments){
 						functions[i].method(message,argsList);
 					}else{
-						message.channel.sendMessage("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
+						message.channel.send("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
 					}
 
 				}
