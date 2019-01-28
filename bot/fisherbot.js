@@ -42,6 +42,7 @@ bot.on(
 					}
 					if(isDynamicArgumentFunction || argsList.length == functions[i].arguments){
 						functions[i].method(message,argsList);
+						console.log("User " + message.author.username + " enters command " + message.content + " at " + message.createdTimestamp);
 					}else{
 						message.channel.send("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
 					}
@@ -64,6 +65,10 @@ bot.on('guildMemberAdd', member => {
 		member.guild.defaultChannel.send(member.user + " has joined the channel.");
 	}
 });
+
+bot.on("error", (e) => console.error(e));
+bot.on("warn", (e) => console.warn(e));
+bot.on("debug", (e) => console.info(e));
 
 
 function isAdmin(user){
