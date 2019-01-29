@@ -24,9 +24,12 @@ bot.on(
 	function(message){
 		let functions = Commands.getCommands(); 
 		for(var i = 0; i < functions.length; i++){
-			if(message.content.toLowerCase().startsWith(prefix + functions[i].name.toLowerCase())){
+			if(
+				message.content.toLowerCase() == (prefix + functions[i].name.toLowerCase())
+				|| message.content.toLowerCase().replace(/\s/g,'').startsWith(prefix + functions[i].name.toLowerCase() + delimiter)			
+			){
 				if(functions[i].isAdminCommand && !isAdmin(message.member)){
-					message.channel.sendMessage("You are not authorized to use this command");
+					message.channel.send("You are not authorized to use this command");
 				}else{
 					let argsList = [];
 					let isDynamicArgumentFunction = (functions[i].arguments == null);
@@ -39,8 +42,9 @@ bot.on(
 					}
 					if(isDynamicArgumentFunction || argsList.length == functions[i].arguments){
 						functions[i].method(message,argsList);
+						console.log("User " + message.author.username + " enters command " + message.content + " at " + message.createdTimestamp);
 					}else{
-						message.channel.sendMessage("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
+						message.channel.send("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
 					}
 
 				}
@@ -51,12 +55,20 @@ bot.on(
 );
 
 bot.on("guildMemberRemove", (member) => {
-	member.guild.defaultChannel.send(member.user + " has left the channel.");
+	if(member.guild.defaultChannel){
+		member.guild.defaultChannel.send(member.user + " has left the channel.");
+	}
 });
 
 bot.on('guildMemberAdd', member => {
-	member.guild.defaultChannel.send(member.user + " has joined the channel.");
+	if(member.guild.defaultChannel){
+		member.guild.defaultChannel.send(member.user + " has joined the channel.");
+	}
 });
+
+bot.on("error", (e) => console.error(e));
+bot.on("warn", (e) => console.warn(e));
+bot.on("debug", (e) => console.info(e));
 
 
 function isAdmin(user){

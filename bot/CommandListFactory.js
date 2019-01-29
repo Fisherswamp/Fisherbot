@@ -235,17 +235,17 @@ var commands = [
 		description: "Sets the user to be in town",
 		isAdminCommand: false,
 		method: function(message,args){
-			if(!message.member.roles.has(message.guild.roles.find("name", "In Town").id)) {
+			if(!message.member.roles.has(message.guild.roles.find(x => x.name === "In Town").id)) {
 				let roles = message.guild.roles;//message.author.addRole(role).catch(console.error);
 				let roleIDs = Array.from(roles.keys());
 				let newRoleArray = [];
 				for(var i = 0; i < roleIDs.length; i++){
 					let currentRole = roleIDs[i];
-					if(message.member.roles.has(currentRole) && currentRole != message.guild.roles.find("name", "Out of Town").id){
+					if(message.member.roles.has(currentRole) && currentRole != message.guild.roles.find(x => x.name === "Out of Town").id){
 						newRoleArray.push(currentRole + "");
 					}
 				}
-				newRoleArray.push(message.guild.roles.find("name", "In Town").id);
+				newRoleArray.push(message.guild.roles.find(x => x.name === "In Town").id);
 
 				message.member.setRoles(newRoleArray);
 				message.channel.send("You are now set to be 'In Town'");
@@ -260,17 +260,17 @@ var commands = [
 		description: "Sets the user to be out of town",
 		isAdminCommand: false,
 		method: function(message,args){
-			if(!message.member.roles.has(message.guild.roles.find("name", "Out of Town").id)) {
+			if(!message.member.roles.has(message.guild.roles.find(x => x.name === "Out of Town").id)) {
 				let roles = message.guild.roles;//message.author.addRole(role).catch(console.error);
 				let roleIDs = Array.from(roles.keys());
 				let newRoleArray = [];
 				for(var i = 0; i < roleIDs.length; i++){
 					let currentRole = roleIDs[i];
-					if(message.member.roles.has(currentRole) && currentRole != message.guild.roles.find("name", "In Town").id){
+					if(message.member.roles.has(currentRole) && currentRole != message.guild.roles.find(x => x.name === "In Town").id){
 						newRoleArray.push(currentRole + "");
 					}
 				}
-				newRoleArray.push(message.guild.roles.find("name", "Out of Town").id);
+				newRoleArray.push(message.guild.roles.find(x => x.name === "Out of Town").id);
 
 				message.member.setRoles(newRoleArray);
 				message.channel.send("You are now set to be 'Out of Town'");
@@ -314,6 +314,16 @@ var commands = [
 				message.channel.fetchMessages({limit: numMessages}).then(messages => message.channel.bulkDelete(messages));
 			}
 		}
+	},
+	{
+		name: "pin",
+		arguments: 0,
+		description: "Pins the message sent, which can be edited later",
+		isAdminCommand: false,
+		method: function(message, args){
+			message.react('🤔');
+			message.pin();
+		}
 	}
 //	{
 //		name: "testcommand",
@@ -348,7 +358,9 @@ function playClip(songData, message){
 
 			dispatcher.on('end', ()=> {
 				console.log("Clip has finished playing file " + pathString);
-				message.member.voiceChannel.leave();
+				if(message.member.voiceChannel){
+					message.member.voiceChannel.leave();
+				}
 			});
 
 			dispatcher.setVolume(1);
