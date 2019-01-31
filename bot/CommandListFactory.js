@@ -1,12 +1,13 @@
-var Opus = require('node-opus');
-var Path = require('path');
-var AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
-var Math = require('mathjs');
+const Opus = require('node-opus');
+const Path = require('path');
+const AudioHandler = require(Path.resolve(__dirname, "AudioHandler.js"));
+const Math = require('mathjs');
+const FS = require('fs');
 
-var prefix = "/";
-var delimiter = ",";
+const prefix = "/";
+const delimiter = ",";
 
-var commands = [
+const commands = [
 	{
 		name: "ping",
 		arguments: 0,
@@ -324,6 +325,15 @@ var commands = [
 			message.react('🤔');
 			message.pin();
 		}
+	},
+	{
+		name: "chester",
+		arguments: 0,
+		description: "Plays a sounds from the chester soundboard",
+		isAdminCommand: false,
+		method: function(message, args){
+			playChesterClip(message);
+		}
 	}
 //	{
 //		name: "testcommand",
@@ -372,6 +382,46 @@ function playClip(songData, message){
 		);
 	}
 }
+
+function playChesterClip(message){
+	ch = message.member.voiceChannel;
+	const chesterFolder = "../audio_clips/chester_sounds/";
+	FS.readdir(Path.resolve(__dirname, chesterFolder), (err, files) => {
+		if(err){
+			console.log(err);
+			message.channel.send("Unable to play chester clip, please ask the admin to check their logs.");
+			return;
+		}
+		let chosenSong = files[Math.floor(Math.random()*files.length)];	
+		message.member.voiceChannel.join().then(connection => {
+			let pathString = Path.resolve(__dirname, chesterFolder + chosenSong);
+			let dispatcher = connection.playFile(pathString);
+			dispatcher.on('error', e => {
+				console.log(e);	
+			});
+
+			dispatcher.on('debug', msg => {
+				console.log(msg);
+			});
+
+			dispatcher.on('end', ()=> {
+				console.log("Clip has finished playing chester file " + pathString);
+				if(message.member.voiceChannel){
+					message.member.voiceChannel.leave();
+				}
+			});
+
+			dispatcher.setVolume(1);
+		}).catch(
+			function(error){
+				message.channel.send("I have encountered an error trying to play this clip. Please ask my developer to check the error logs.");
+				console.log(error);
+			}
+		);
+	});
+	
+}
+
 (function(){
 	module.exports.getCommands = function(){
 		return commands;
