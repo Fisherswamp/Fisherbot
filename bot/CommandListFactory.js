@@ -347,7 +347,12 @@ const commands = [
 ];
 
 function playClip(songData, message){
+	if(message.member == null){
+		message.channel.send("This command does not work unless it is in a server.");
+		return;
+	}
 	ch = message.member.voiceChannel;
+	
 	if(songData == null){
 		message.channel.send("This function is still in development.");
 		return;
@@ -384,7 +389,15 @@ function playClip(songData, message){
 }
 
 function playChesterClip(message){
+	if(message.member == null){
+		message.channel.send("This command does not work unless it is in a server.");
+		return;
+	}
 	ch = message.member.voiceChannel;
+	if(ch == null){
+		message.channel.send("Please join a channel first");
+		return;
+	}
 	const chesterFolder = "../audio_clips/chester_sounds/";
 	FS.readdir(Path.resolve(__dirname, chesterFolder), (err, files) => {
 		if(err){
