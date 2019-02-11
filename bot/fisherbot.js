@@ -29,7 +29,7 @@ bot.on(
 				|| message.content.toLowerCase().replace(/\s/g,'').startsWith(prefix + functions[i].name.toLowerCase() + delimiter)			
 			){
 				if(functions[i].isAdminCommand && !isAdmin(message.member)){
-					message.channel.send("You are not authorized to use this command");
+					sendMessage(message,"You are not authorized to use this command");
 				}else{
 					let argsList = [];
 					let isDynamicArgumentFunction = (functions[i].arguments == null);
@@ -44,7 +44,7 @@ bot.on(
 						functions[i].method(message,argsList);
 						console.log("User " + message.author.username + " enters command " + message.content + " at " + message.createdTimestamp);
 					}else{
-						message.channel.send("This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
+						sendMessage(message,"This function (" + functions[i].name + ") has " + functions[i].arguments + " arguments, whereas you entered " + argsList.length + ".");
 					}
 
 				}
@@ -75,6 +75,9 @@ function isAdmin(user){
 	return (user.hasPermission('ADMINISTRATOR') || user.id == "102514568432988160");
 }
 
+let sendMessage = (messageData, sendString) => {
+	messageData.channel.send("```" + sendString + "```");
+}
 
 let content = JSON.parse(FileSystem.readFileSync(Path.resolve(__dirname, "../login_info/login.json"), "UTF-8"));
 
